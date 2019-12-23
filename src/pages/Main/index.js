@@ -42,7 +42,7 @@ handleAddUser = async () => {
   this.setState({ loading: true });
 
   try {
-    const { newUser, user } = this.state;
+    const { newUser, users } = this.state;
     const alreadyUserLogin = users.find(us => us.login === newUser );
     const { alreadyUserName } = users.find(us => us.name === newUser);
 
@@ -100,6 +100,38 @@ timeMessageError = () => {
     this.setState({ sendErrorMessage: '' });
   }, 2500);
 };
+
+confirmExcluidUsers = user => {
+  Alert.alert(
+    `Deseja realmente excluir o perfil de ${users}`,
+    'A ação não pode ser desfeita.',
+    [
+      {
+        text: 'Não',
+        onDismiss:() => {},
+        style: 'cancel',
+      },
+      { text: 'sim', onPress: () => this.handleDeleteUser(users) },
+    ],
+    { cancelable: false }
+  );
+};
+
+handleDeleteUser = () => {
+  Alert.alert(
+    'Confirmação de exclusão',
+    `O perfil de ${users} foi removido de sua lista.`,
+    [
+      {
+        text: 'Entendi',
+        onDismiss: () => {},
+      },
+    ],
+  );
+
+  this.setState({ users: this.state.users.filter( us => us.login !== users ),
+  });
+};
 //Auxilia na otimização do carregamento das informações ao fechar e abrir o app
 
 componentWillMount(){
@@ -110,11 +142,6 @@ componentWillMount(){
     sendErrorMessage: '',
   })
 }
-
-
-
-
-
 
   render(){
     return (
