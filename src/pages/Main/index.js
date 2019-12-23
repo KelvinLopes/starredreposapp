@@ -16,6 +16,12 @@ export default class Main extends Component {
   title: 'Usuários',
 };
 
+static propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+};
+
 state = {
   newUser : '',
   users : [],
@@ -142,6 +148,11 @@ showInfo = () => {
       }
     ],
   );
+};
+
+handleNavigation = () => {
+  const { navigation } = this.props;
+  navigation.navigate('users', {user});
 };
 //Auxilia na otimização do carregamento das informações ao fechar e abrir o app
 
