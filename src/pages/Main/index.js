@@ -207,6 +207,7 @@ export default class Main extends Component {
             onChangeText={text => this.setState({ newUser: text })}
             returnKeyType="send"
             onSubmitEditing={this.handleAddUser}
+            type="text"
           />
           <SubmitButton loading={loading} onPress={this.handleAddUser}>
             {loading ? (
