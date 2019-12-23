@@ -132,6 +132,17 @@ handleDeleteUser = () => {
   this.setState({ users: this.state.users.filter( us => us.login !== users ),
   });
 };
+showInfo = () => {
+  Alert.alert(
+    'Como usar?',
+    'Para adiconar perfils a sua lista, digite um nome de login de seu amigo(a) dev e toque no botão +',
+    [
+      {
+        text: 'Entendi', onDismiss: () => {},
+      }
+    ],
+  );
+};
 //Auxilia na otimização do carregamento das informações ao fechar e abrir o app
 
 componentWillMount(){
