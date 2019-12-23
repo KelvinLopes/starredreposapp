@@ -5,11 +5,11 @@ import './config/ReactotronConfig';
 
 import Routes from './routes';
 
-export default function App(){
+export default function App() {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#111" />
       <Routes />
     </>
-  )
+  );
 }
