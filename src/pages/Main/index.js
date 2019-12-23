@@ -77,7 +77,7 @@ handleAddUser = async () => {
     );
 
   }catch(error) {
-
+    this.timeMessageError();
     let textMessage = '';
     if (error !== 'Você já salvou esse perfil.')
     textMessage = 'Digite um perfil do Github.'
@@ -95,6 +95,11 @@ handleAddUser = async () => {
   Keyboard.dismiss();
 }
 
+timeMessageError = () => {
+  setTimeout(() => {
+    this.setState({ sendErrorMessage: '' });
+  }, 2500);
+};
 //Auxilia na otimização do carregamento das informações ao fechar e abrir o app
 
 componentWillMount(){
