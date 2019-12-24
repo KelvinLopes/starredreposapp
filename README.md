@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  Salve em uma lista dos repositórios marcados com estrela de seus amigos(as) devs.
+  Salve em uma lista os repositórios marcados com estrela de seus amigos(as) devs.
  <p> 
 
 
