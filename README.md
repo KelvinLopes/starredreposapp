@@ -1,6 +1,10 @@
 # Repos Starreds 🚀🎩
 
-Salve em uma lista dos repositórios marcados com estrela de seus amigos(as) devs.
+
+<p align="center">
+  Salve em uma lista dos repositórios marcados com estrela de seus amigos(as) devs.
+ <p> 
+
 
 <p align="center"> 
   <img src="https://raw.githubusercontent.com/KelvinLopes/starredreposapp/master/screenhots/Screenshot_tela_inicial.png"      width="320" heigth="320" align="center" alt="Tela inicial do App Repo Starreds"/>
