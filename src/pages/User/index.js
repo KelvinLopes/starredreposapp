@@ -36,7 +36,7 @@ export default class User extends Component {
     stars: [],
     loading: true,
     page: 1,
-    refreshing: false,
+    refreshing: true,
   };
 
   async componentDidMount() {
