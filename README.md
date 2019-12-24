@@ -2,6 +2,8 @@
 
 Salve em uma lista dos repositórios marcados com estrela de seus amigos(as) devs.
 
+<img src="https://raw.githubusercontent.com/KelvinLopes/starredreposapp/master/screenhots/Screenshot_tela_inicial.png" alt="Tela inicial do App Repo Starreds"/>
+
 ### Tecnologias 🔧🚙🔌
 
 * Desenvolvido em ReactNative para o Android OS,
