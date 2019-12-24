@@ -38,6 +38,7 @@ module.exports={
     'react/static-property-placement' : 'off',
     'react/jsx-props-no-spreading' : 'off',
     'react/sort-comp' : 'off',
+    'no-throw-literal': 'off',
     'react/destructuring-assignment': 'off',
     'react/no-access-state-in-setstate': 'off',
     'react/prefer-stateless-function': 'off'

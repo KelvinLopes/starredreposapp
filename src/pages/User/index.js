@@ -37,7 +37,6 @@ export default class User extends Component {
     loading: true,
     page: 1,
     refreshing: false,
-    repoStarreds: {},
   };
 
   async componentDidMount() {
@@ -45,26 +44,27 @@ export default class User extends Component {
   }
 
   loadStarredRepos = async (page = 1) => {
+    const { stars } = this.state;
     const { navigation } = this.props;
     const user = navigation.getParam('user');
 
-    const response = await api.get(`/users/${user.login}/starred?page=${page}`);
-
-    const { stars, repoStarreds } = response.data;
+    const response = await api.get(
+      `/users/${user.login}/starred?page=${page}`,
+      {
+        params: { page },
+      }
+    );
 
     this.setState({
-      stars: [this.state.stars, ...stars],
-      repoStarreds,
+      stars: page >= 1 ? [...stars, ...response.data] : response.data,
       page,
-      loading: false,
+      loading: true,
       refreshing: false,
     });
   };
 
   loadMore = () => {
-    const { page, repoStarreds } = this.state;
-
-    if (page === repoStarreds.page) return;
+    const { page } = this.state;
 
     const pageNumber = page + 1;
 
@@ -107,7 +107,7 @@ export default class User extends Component {
         {loading ? <></> : <ActivityIndicator color="fff" />}
         {stars.length > 0 ? (
           <Stars
-            data={stars}
+            data={this.state.stars}
             keyExtractor={star => String(star.id)}
             refreshing={this.state.refreshing}
             onRefresh={this.refreshList}

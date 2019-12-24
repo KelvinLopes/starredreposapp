@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, ActivityIndicator, Text, Alert, Modal } from 'react-native';
+import { Keyboard, ActivityIndicator, Text, Alert } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -32,6 +32,12 @@ import {
   InfoButton,
   NumberPerfilContent,
   TextNameApp,
+  Modal,
+  ButtonHiddenModalInfo,
+  TextModalInfo,
+  TextDescriptionModalInfo,
+  ContainerModal,
+  TextHiddenModalInfo,
 } from './styles';
 
 export default class Main extends Component {
@@ -49,9 +55,14 @@ export default class Main extends Component {
     newUser: '',
     users: [],
     loading: false,
-    checkError: false,
+    checkError: true,
     sendErrorMessage: '',
+    modalVisible: false,
   };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
 
   async componentDidMount() {
     const users = await AsyncStorage.getItem('users');
@@ -72,42 +83,46 @@ export default class Main extends Component {
 
     try {
       const { newUser, users } = this.state;
-      const alreadyUserLogin = users.find(us => us.login === newUser);
-      const { alreadyUserName } = users.find(us => us.name === newUser);
+      const alreadyUserLogin = users.find(usr => usr.login === newUser);
+      const alreadyUserName = users.find(usr => usr.name === newUser);
 
       if (alreadyUserLogin || alreadyUserName) {
-        throw new Error('Você já salvou esse perfil.');
+        throw 'Você já salvou esse perfil.';
       }
 
-      const response = await api.get(`users/${newUser}`);
+      const response = await api.get(`/users/${newUser}`);
 
       const data = {
         name: response.data.name,
         login: response.data.login,
         bio: response.data.bio,
-        avatar: response.data.avatar,
+        avatar: response.data.avatar_url,
+        profile: response.data.html_url,
       };
-
       if (newUser !== response.data.login || newUser === '') {
-        throw new Error('Digite um perfil do Github');
+        throw 'Digite um perfil do Github.';
       }
-
       this.setState({
         users: [...users, data],
-        checkError: true,
-        sendErrorMessage: '',
         newUser: '',
+        sendErrorMessage: '',
+        checkError: true,
       });
-
       Alert.alert(
         'Parabéns',
-        `O perfil de ${newUser} foi adicionado em sua lista.`,
+        `O perfil ${newUser} foi salvo em sua lista.`,
+
         [{ text: 'Fechar', onDismiss: () => {} }]
       );
     } catch (error) {
       this.timeMessageError();
       let textMessage = '';
       if (error !== 'Você já salvou esse perfil.')
+        textMessage = 'Digite um perfil do Github.';
+      if (
+        error !== 'O usário não encontrado na base do Github' &&
+        error !== 'Você já salvou esse perfil.'
+      )
         textMessage = 'Digite um perfil do Github.';
       else textMessage = error;
 
@@ -159,20 +174,7 @@ export default class Main extends Component {
     this.setState({ users: this.state.users.filter(us => us.login !== users) });
   };
 
-  showInfo = () => {
-    Alert.alert(
-      'Como usar?',
-      'Para adiconar perfils a sua lista, digite um nome de login de seu amigo(a) dev e toque no botão +',
-      [
-        {
-          text: 'Entendi',
-          onDismiss: () => {},
-        },
-      ]
-    );
-  };
-
-  handleNavigation = user => {
+  handleNavigate = user => {
     const { navigation } = this.props;
     navigation.navigate('User', { user });
   };
@@ -198,12 +200,35 @@ export default class Main extends Component {
 
     return (
       <Container>
+        <Modal
+          animationType="slide"
+          transparent
+          visible={this.state.modalVisible}
+        >
+          <ContainerModal>
+            <TextModalInfo>Como usar?</TextModalInfo>
+            <TextDescriptionModalInfo>
+              Para adiconar perfils a sua lista, digite um nome de login de seu
+              amigo(a) dev e toque no botão: +
+            </TextDescriptionModalInfo>
+
+            <ButtonHiddenModalInfo>
+              <TextHiddenModalInfo
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+              >
+                Fechar
+              </TextHiddenModalInfo>
+            </ButtonHiddenModalInfo>
+          </ContainerModal>
+        </Modal>
         <Form>
           <Input
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Digite aqui o nome de usuário"
-            valeu={newUser}
+            value={newUser}
             onChangeText={text => this.setState({ newUser: text })}
             returnKeyType="send"
             onSubmitEditing={this.handleAddUser}
@@ -247,7 +272,7 @@ export default class Main extends Component {
           />
         ) : (
           <NoList>
-            <Icon name="event-note" size={210} color="#fff" />
+            <Icon name="event-note" size={210} color="#999" />
             <NoListText> Sua lista de perfis aparecerão aqui</NoListText>
           </NoList>
         )}
@@ -263,7 +288,10 @@ export default class Main extends Component {
               name="information-outline"
               size={40}
               color="#fff"
-              onPress={() => this.showInfo()}
+              /* onPress={() => this.showInfo()} */
+              onPress={() => {
+                this.setModalVisible(true);
+              }}
             />
           </InfoButton>
           {users.length < 1 ? (

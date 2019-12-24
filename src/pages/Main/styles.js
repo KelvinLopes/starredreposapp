@@ -4,7 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 export const Container = styled.View`
   flex: 1;
   padding: 30px;
-  background: rgba(1, 1, 1, 0.8);
+  background: rgba(1, 1, 1, 0.9);
 `;
 
 export const Form = styled.View`
@@ -51,16 +51,20 @@ export const User = styled.View`
   margin: 0 20px 30px;
 `;
 
-export const Avatar = styled.Image`
-  width: 64px;
-  height: 64px;
-  border-radius: 32px;
+export const Avatar = styled.Image.attrs({
+  borderColor: '#009aaa',
+  borderStyle: 'solid',
+  borderWidth: 5,
+})`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
   background: #eee;
 `;
 
 export const Name = styled.Text`
   font-size: 14px;
-  color: #333;
+  color: #248eff;
   font-weight: bold;
   margin-top: 4px;
   text-align: center;
@@ -69,9 +73,9 @@ export const Name = styled.Text`
 export const Bio = styled.Text.attrs({
   numberOfLines: 2,
 })`
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
-  color: #999;
+  color: #009aaa;
   margin-top: 5px;
   text-align: center;
 `;
@@ -110,7 +114,7 @@ export const DeleteButton = styled(RectButton)`
   margin-top: 10px;
   align-self: stretch;
   border-radius: 4px;
-  background: #248eff;
+  background: #009aaa;
   justify-content: center;
   align-items: center;
   height: 36px;
@@ -122,10 +126,15 @@ export const DeleteButtonText = styled.Text`
   color: #fff;
 `;
 
-export const Footer = styled.View`
+export const Footer = styled.View.attrs({
+  borderTop: 1,
+  borderTopColor: '#248eff',
+  borderStyle: 'solid',
+  borderWidth: 1,
+})`
   height: 50px;
   bottom: 0;
-  background: #248eff;
+  background: #011;
   flex: 1;
   position: absolute;
   left: 0;
@@ -159,7 +168,6 @@ export const InfoButton = styled(RectButton)`
   left: -16px;
   align-self: stretch;
   border-radius: 300px;
-  background: #248eff;
   color: #ddd;
   justify-content: center;
   align-items: center;
@@ -206,4 +214,68 @@ export const TextNameApp = styled.Text`
   top: 5px;
   right: 40px;
   padding: 12px;
+`;
+
+export const Modal = styled.Modal`
+  flex: 1;
+  padding: 30px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(1, 1, 1, 0.8);
+`;
+
+export const ContainerModal = styled.View`
+  padding: 30px;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+  top: 150px;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  background: rgba(1, 1, 1, 1);
+  z-index: 5;
+  border-radius: 6px;
+`;
+
+export const ButtonHiddenModalInfo = styled(RectButton)`
+  margin-top: 10px;
+  top: 50px;
+  align-self: center;
+  border-radius: 4px;
+  background: #248eff;
+  justify-content: center;
+  align-items: center;
+  height: 36px;
+  width: 300px;
+`;
+
+export const TextModalInfo = styled.Text`
+  color: #999;
+  font-style: italic;
+  font-family: Roboto;
+  color: #009aaa;
+  bottom: 60px;
+  font-size: 20px;
+`;
+
+export const TextDescriptionModalInfo = styled.Text`
+  font-style: normal;
+  font-family: Roboto;
+  color: #009aaa;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const TextHiddenModalInfo = styled.Text`
+  font-style: normal;
+  font-family: Roboto;
+  color: #fff;
+  font-size: 18px;
+  width: 360px;
+  text-align: center;
 `;
