@@ -114,6 +114,7 @@ export default class Main extends Component {
 
         [{ text: 'Fechar', onDismiss: () => {} }]
       );
+      this.modalNewUser();
     } catch (error) {
       this.timeMessageError();
       let textMessage = '';
@@ -223,6 +224,7 @@ export default class Main extends Component {
             </ButtonHiddenModalInfo>
           </ContainerModal>
         </Modal>
+
         <Form>
           <Input
             autoCorrect={false}
