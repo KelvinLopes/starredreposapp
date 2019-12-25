@@ -56,4 +56,6 @@ caso precise desinstalar use:
 
 O armazenamento ainda é local 📳 .
 
+Orientação padrão: Portrait.
+
 💫 Repos
